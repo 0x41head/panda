@@ -36,7 +36,7 @@ cppcheck() {
   $CPPCHECK_DIR/cppcheck --enable=all --force --inline-suppr -I $PANDA_DIR/board/ \
           -I $gcc_inc "$(arm-none-eabi-gcc -print-file-name=include)" \
           --suppressions-list=$DIR/suppressions.txt --suppress=*:*inc/* \
-          --suppress=*:*include/* --error-exitcode=2 --addon=misra \
+          --suppress=*:*include/* --error-exitcode=1 --addon=misra \
           --check-level=exhaustive --cppcheck-build-dir=$build_dir \
           "$@"
 }
