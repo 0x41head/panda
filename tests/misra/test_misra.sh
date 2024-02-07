@@ -36,13 +36,13 @@ cppcheck() {
   $CPPCHECK_DIR/cppcheck --enable=all --force --inline-suppr -I $PANDA_DIR/board/ \
           -I $gcc_inc "$(arm-none-eabi-gcc -print-file-name=include)" \
           --suppressions-list=$DIR/suppressions.txt --suppress=*:*inc/* \
-          --suppress=*:*include/* --error-exitcode=1 --addon=misra \
+          --suppress=*:*include/* --error-exitcode=2 --addon=misra \
           --check-level=exhaustive --cppcheck-build-dir=$build_dir \
           "$@"
 }
 
 printf "\n${GREEN}** PANDA F4 CODE **${NC}\n"
-cppcheck -DCAN3 -DPANDA -DSTM32F4 -UPEDAL -DUID_BASE $PANDA_DIR/board/main.c
+cppcheck -DCAN3 -DPANDA -DSTM32F4 -UPEDAL -DUID_BASE $PANDA_DIR/board/main.c && echo $?
 
 printf "\n${GREEN}** PANDA H7 CODE **${NC}\n"
 cppcheck -DCAN3 -DPANDA -DSTM32H7 -UPEDAL -DUID_BASE $PANDA_DIR/board/main.c
